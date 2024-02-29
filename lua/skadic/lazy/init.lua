@@ -25,4 +25,5 @@ lazy.setup("skadic.lazy.plugins", {
 	ui = {
 		border = "rounded",
 	},
+  lockfile = vim.fn.stdpath("data") .. "/lazy/lazy-lock.json"
 })
