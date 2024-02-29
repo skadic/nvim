@@ -1,0 +1,5 @@
+require("skadic.options")
+require("skadic.lazy")
+require("skadic.colorscheme")
+require("skadic.keymaps")
+require("skadic.neovide")
