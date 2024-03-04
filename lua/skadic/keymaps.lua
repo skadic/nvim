@@ -49,7 +49,7 @@ end
 
 wk.register({
   f = {
-    name = "Search",
+    name = "Find",
     g = {
       function()
         -- We want to just call the normal find files command if the current dir is not a git directory
@@ -65,7 +65,7 @@ wk.register({
     p = { "<cmd>Telescope projects theme=dropdown<cr>", "Projects" },
     l = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
     n = { "<cmd>Telescope notify<cr>", "Search Notifications" },
-    h = { "<cmd>Telescope harpoon marks<cr>", "Harpooned Files"},
+    t = { "<cmd>TodoTelescope<cr>", "Todos"},
   },
   L = { "<cmd>Lazy<cr>", "Open Lazy"},
   M = { "<cmd>Mason<cr>", "Open Mason"},
@@ -88,27 +88,11 @@ wk.register({
   },
   g = {
     name = "Git",
-    f = {
-      name = "Find",
-      b = { function() call_if_git("Telescope git_branches") end, "Git Branches" },
-      s = { function() call_if_git("Telescope git_status") end, "Git Status" },
-      t = { function() call_if_git("Telescope git_stash") end, "Git Stashes" },
-      c = { function() call_if_git("Telescope git_commits") end, "Git Commits" },
-      f = { function() call_if_git("Telescope git_files") end, "Git Files" },
-    },
-    d = { "<cmd>Gitsigns diffthis<cr>", "Git Diff"},
-    r = {
-      name = "Reset",
-      H = {"<cmd>Gitsigns reset_hunk<cr>", "Reset Hunk"},
-      B = {"<cmd>Gitsigns reset_buffer<cr>", "Reset Buffer"},
-    },
-    s = {
-      name = "Stage",
-      h = { "<cmd>Gitsigns stage_hunk<cr>", "Stage Hunk"},
-      b = { "<cmd>Gitsigns stage_buffer<cr>", "Stage Buffer"},
-    },
-    b = { "<cmd>Gitsigns blame_line<cr>", "Blame Line"},
-    t = { "<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle Current Line Blame"},
+    b = { function() call_if_git("Telescope git_branches") end, "Git Branches" },
+    s = { function() call_if_git("Telescope git_status") end, "Git Status" },
+    t = { function() call_if_git("Telescope git_stash") end, "Git Stashes" },
+    c = { function() call_if_git("Telescope git_commits") end, "Git Commits" },
+    f = { function() call_if_git("Telescope git_files") end, "Git Files" },
   }
 }, wk_opts)
 
@@ -117,9 +101,9 @@ wk.register({
 keymap("i", "jk", "<ESC>", opts)
 
 -- Visual --
--- Stay in indent mode
-keymap("v", "<", "<gv", opts)
-keymap("v", ">", ">gv", opts)
+  -- Stay in indent mode
+  keymap("v", "<", "<gv", opts)
+  keymap("v", ">", ">gv", opts)
 
 -- Move text up and down
 keymap("v", "<A-j>", ":m .+1<CR>==", opts)

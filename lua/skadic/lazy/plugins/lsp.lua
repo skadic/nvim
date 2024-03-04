@@ -187,7 +187,7 @@ return {
     config = function()
       local palette = require("skadic.colors").palette
       palette.normal_bg = palette.bg
-      palette.title_bg = palette.black
+      palette.title_bg = palette.light_bg
       require("lspsaga").setup({
         ui = {
           theme = "round",

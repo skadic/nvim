@@ -1,5 +1,9 @@
 local M = {}
 
+M.setup = function()
+
+end
+
 -- TODO: backfill this to template
 M.setup = function()
 	local signs = {
@@ -47,7 +51,7 @@ end
 local function lsp_highlight_document(client)
 	-- Set autocommands conditional on server_capabilities
 	if client.server_capabilities.documentHighlightProvider then
-		vim.api.nvim_exec(
+		vim.api.nvim_exec(  
 			[[
       augroup lsp_document_highlight
         autocmd! * <buffer>
@@ -60,7 +64,7 @@ local function lsp_highlight_document(client)
 	end
 end
 
-  
+
 
 local function lsp_keymaps(bufnr)
 	local wk_opts = { mode = "n", prefix = "g", noremap = true, silent = true, buffer = bufnr }
@@ -68,7 +72,7 @@ local function lsp_keymaps(bufnr)
 
 	wk.register({
 		d = { "<cmd>Telescope lsp_definitions<CR>", "Definition" },
-		D = { "<cmd>Lspsaga lsp_finder<CR>", "LSP finder" },
+		D = { "<cmd>Lspsaga finder<CR>", "LSP finder" },
 		i = { "<cmd>Telescope lsp_implementations<CR>", "Implementation" },
 		r = { "<cmd>Telescope lsp_references<CR>", "References" },
 		s = { "<cmd>Telescope lsp_document_symbols<CR>", "Document Symbols" },
@@ -78,9 +82,8 @@ local function lsp_keymaps(bufnr)
 	wk_opts.prefix = "<leader>l"
 	wk.register({
 		name = "Language Server",
-		a = { "<cmd>lua require('actions-preview').code_actions()<CR>", "Code Action" },
+    a = { "<cmd>lua require('actions-preview').code_actions()<CR>", "Code Action" },
 		d = { "<cmd>Lspsaga show_cursor_diagnostics<cr>", "Show Cursor Diagnostic" },
-		b = { "<cmd>DapToggleBreakpoint<CR>", "Toggle Breakpoint" },
 		e = { "<Plug>(doge-generate)", "Generate Documentation" },
 		f = {
 			function()

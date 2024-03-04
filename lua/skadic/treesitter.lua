@@ -1,6 +1,4 @@
-local configs = require("nvim-treesitter.configs")
-
-configs.setup({
+require("nvim-treesitter.configs").setup({
 	ensure_installed = { "rust", "cpp", "lua", "json", "css", "html", "python", "latex" },
 	sync_install = false,
 	ignore_install = { "" }, -- List of parsers to ignore installing
