@@ -109,7 +109,6 @@ local function lsp_keymaps(bufnr)
 	local goto_next, goto_prev
 	local delimited_status_ok, delimited = pcall(require, "delimited")
 	if delimited_status_ok then
-		vim.notify("nice")
 		goto_next = delimited.goto_next
 		goto_prev = delimited.goto_prev
 	else
