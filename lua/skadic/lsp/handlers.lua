@@ -1,11 +1,6 @@
 local M = {}
 
 M.setup = function()
-
-end
-
--- TODO: backfill this to template
-M.setup = function()
 	local signs = {
 		{ name = "DiagnosticSignError", text = "" },
 		{ name = "DiagnosticSignWarn", text = "" },
@@ -51,7 +46,7 @@ end
 local function lsp_highlight_document(client)
 	-- Set autocommands conditional on server_capabilities
 	if client.server_capabilities.documentHighlightProvider then
-		vim.api.nvim_exec(  
+		vim.api.nvim_exec(
 			[[
       augroup lsp_document_highlight
         autocmd! * <buffer>
@@ -63,8 +58,6 @@ local function lsp_highlight_document(client)
 		)
 	end
 end
-
-
 
 local function lsp_keymaps(bufnr)
 	local wk_opts = { mode = "n", prefix = "g", noremap = true, silent = true, buffer = bufnr }
@@ -82,7 +75,7 @@ local function lsp_keymaps(bufnr)
 	wk_opts.prefix = "<leader>l"
 	wk.register({
 		name = "Language Server",
-    a = { "<cmd>lua require('actions-preview').code_actions()<CR>", "Code Action" },
+		a = { "<cmd>lua require('actions-preview').code_actions()<CR>", "Code Action" },
 		d = { "<cmd>Lspsaga show_cursor_diagnostics<cr>", "Show Cursor Diagnostic" },
 		e = { "<Plug>(doge-generate)", "Generate Documentation" },
 		f = {
@@ -112,10 +105,22 @@ local function lsp_keymaps(bufnr)
 		},
 	}, wk_opts)
 
+	-- Setup the goto commands for diagnostics
+	local goto_next, goto_prev
+	local delimited_status_ok, delimited = pcall(require, "delimited")
+	if delimited_status_ok then
+		vim.notify("nice")
+		goto_next = delimited.goto_next
+		goto_prev = delimited.goto_prev
+	else
+		goto_next = vim.diagnostic.goto_next
+		goto_prev = vim.diagnostic.goto_prev
+	end
+
 	wk_opts.prefix = ""
 	wk.register({
-		["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "Previous Diagnostic" },
-		["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "Next Diagnostic" },
+		["[d"] = { goto_prev, "Previous Diagnostic" },
+		["]d"] = { goto_next, "Next Diagnostic" },
 	}, wk_opts)
 
 	local status_ok, dapui = pcall(require, "dapui")

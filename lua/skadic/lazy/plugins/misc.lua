@@ -30,12 +30,24 @@ return {
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
-    lazy = true,
-    event = "BufRead",
+		lazy = true,
+		event = "BufRead",
 		opts = {
 			-- your configuration comes here
 			-- or leave it empty to use the default settings
 			-- refer to the configuration section below
+		},
+	},
+	{
+		"mizlan/delimited.nvim",
+    lazy = true,
+		opts = {
+			pre = function()
+				-- do something here
+			end,
+			post = function()
+				-- do something here
+			end,
 		},
 	},
 	{

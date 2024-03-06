@@ -38,62 +38,90 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
-local wk_opts = { mode = "n", prefix="<leader>", noremap = true, silent = true }
+local wk_opts = { mode = "n", prefix = "<leader>", noremap = true, silent = true }
 
 local function call_if_git(command)
-  local status_ok, _ = pcall(vim.cmd, command)
-  if not status_ok then
-    vim.notify("Not a git repo")
-  end
+	local status_ok, _ = pcall(vim.cmd, command)
+	if not status_ok then
+		vim.notify("Not a git repo")
+	end
 end
 
 wk.register({
-  f = {
-    name = "Find",
-    g = {
-      function()
-        -- We want to just call the normal find files command if the current dir is not a git directory
-        local status_ok, _ = pcall(vim.cmd, "Telescope git_files")
-        if not status_ok then
-          vim.cmd("Telescope find_files")
-        end
-      end,
-      "Git Files"
-    },
-    f = { "<cmd>Telescope find_files<cr>", "Find File" },
-    b = { "<cmd>Telescope buffers<cr>", "Search Buffers" },
-    p = { "<cmd>Telescope projects theme=dropdown<cr>", "Projects" },
-    l = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
-    n = { "<cmd>Telescope notify<cr>", "Search Notifications" },
-    t = { "<cmd>TodoTelescope<cr>", "Todos"},
-  },
-  L = { "<cmd>Lazy<cr>", "Open Lazy"},
-  M = { "<cmd>Mason<cr>", "Open Mason"},
-  e = { "<cmd>Neotree toggle<cr>", "Toggle File Tree" },
-  b = { "<cmd>Neotree buffers<cr>", "Toggle Buffers" },
-  n = { "<cmd>Navbuddy<cr>", "Navbuddy" },
-  S = {
-    name = "Session",
-    s = {
-      function ()
-        local session_name = vim.fn.input("Session Name: ")
-        MiniSessions.write(session_name)
-      end, "Save Session"
-    },
-    r = {
-      function ()
-        MiniSessions.select("read")
-      end, "Load Session"
-    },
-  },
-  g = {
-    name = "Git",
-    b = { function() call_if_git("Telescope git_branches") end, "Git Branches" },
-    s = { function() call_if_git("Telescope git_status") end, "Git Status" },
-    t = { function() call_if_git("Telescope git_stash") end, "Git Stashes" },
-    c = { function() call_if_git("Telescope git_commits") end, "Git Commits" },
-    f = { function() call_if_git("Telescope git_files") end, "Git Files" },
-  }
+	f = {
+		name = "Find",
+		g = {
+			function()
+				-- We want to just call the normal find files command if the current dir is not a git directory
+				local status_ok, _ = pcall(vim.cmd, "Telescope git_files")
+				if not status_ok then
+					vim.cmd("Telescope find_files")
+				end
+			end,
+			"Git Files",
+		},
+		f = { "<cmd>Telescope find_files<cr>", "Find File" },
+		b = { "<cmd>Telescope buffers<cr>", "Search Buffers" },
+		p = { "<cmd>Telescope projects theme=dropdown<cr>", "Projects" },
+		l = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
+		n = { "<cmd>Telescope notify<cr>", "Search Notifications" },
+		h = { "<cmd>Telescope help_tags<cr>", "Search Notifications" },
+		t = { "<cmd>TodoTelescope<cr>", "Todos" },
+	},
+	L = { "<cmd>Lazy<cr>", "Open Lazy" },
+	M = { "<cmd>Mason<cr>", "Open Mason" },
+	e = { "<cmd>Neotree toggle<cr>", "Toggle File Tree" },
+	b = { "<cmd>Neotree buffers<cr>", "Toggle Buffers" },
+	n = { "<cmd>Navbuddy<cr>", "Navbuddy" },
+	S = {
+		name = "Session",
+		s = {
+			function()
+				local session_name = vim.fn.input("Session Name: ")
+				MiniSessions.write(session_name)
+			end,
+			"Save Session",
+		},
+		r = {
+			function()
+				MiniSessions.select("read")
+			end,
+			"Load Session",
+		},
+	},
+	g = {
+		name = "Git",
+		b = {
+			function()
+				call_if_git("Telescope git_branches")
+			end,
+			"Git Branches",
+		},
+		s = {
+			function()
+				call_if_git("Telescope git_status")
+			end,
+			"Git Status",
+		},
+		t = {
+			function()
+				call_if_git("Telescope git_stash")
+			end,
+			"Git Stashes",
+		},
+		c = {
+			function()
+				call_if_git("Telescope git_commits")
+			end,
+			"Git Commits",
+		},
+		f = {
+			function()
+				call_if_git("Telescope git_files")
+			end,
+			"Git Files",
+		},
+	},
 }, wk_opts)
 
 -- Insert --
@@ -101,9 +129,9 @@ wk.register({
 keymap("i", "jk", "<ESC>", opts)
 
 -- Visual --
-  -- Stay in indent mode
-  keymap("v", "<", "<gv", opts)
-  keymap("v", ">", ">gv", opts)
+-- Stay in indent mode
+keymap("v", "<", "<gv", opts)
+keymap("v", ">", ">gv", opts)
 
 -- Move text up and down
 keymap("v", "<A-j>", ":m .+1<CR>==", opts)
