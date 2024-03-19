@@ -107,7 +107,7 @@ cmp.setup({
 			cmp.config.compare.score,
 			cmp.config.compare.recently_used,
 			--require("clangd_extensions.cmp_scores"),
-      cmp.config.compare.locality,
+			cmp.config.compare.locality,
 			cmp.config.compare.kind,
 			cmp.config.compare.sort_text,
 			cmp.config.compare.length,

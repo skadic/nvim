@@ -38,16 +38,16 @@ local vi_mode_colors = {
 }
 
 local function lsp_name()
-	local clients = vim.lsp.buf_get_clients(0)
+	local clients = vim.lsp.get_clients()
 	if clients == nil or next(clients) == nil or clients[1] == nil then
 		return ""
 	end
 
-  for _, client in ipairs(clients) do
-    if not (client.name == "null-ls") then
-	    return " " .. client.name
-    end
-  end
+	for _, client in ipairs(clients) do
+		if not (client.name == "null-ls") then
+			return " " .. client.name
+		end
+	end
 
 	local client = clients[1].name
 	return " " .. client
@@ -66,7 +66,50 @@ local function ft_icon()
 	return icon
 end
 
-local status_ok, gitsigns = pcall(require, "gitsigns")
+local function table_to_string(tbl)
+	local result = "{"
+	for k, v in pairs(tbl) do
+		-- Check the key type (ignore any numerical keys - assume its an array)
+		if type(k) == "string" then
+			result = result .. '["' .. k .. '"]' .. "="
+		end
+
+		-- Check the value type
+		if type(v) == "table" then
+			result = result .. table_to_string(v)
+		elseif type(v) == "boolean" then
+			result = result .. tostring(v)
+		else
+			result = result .. '"' .. v .. '"'
+		end
+		result = result .. ","
+	end
+	-- Remove leading commas from the result
+	if result ~= "" then
+		result = result:sub(1, result:len() - 1)
+	end
+	return result .. "}"
+end
+
+local function trim(s)
+	local from = s:match("^%s*()")
+	return from > #s and "" or s:match(".*%S", from)
+end
+
+local function git_branch()
+	local status_result = vim.system({ "git", "status" }):wait()
+	if status_result.code ~= 0 then
+		return ""
+	end
+	local branch_result = vim.system({ "git", "branch" }, { text = true }):wait().stdout
+	local grep_result = vim.system({ "grep", "\\*", "-" }, { stdin = branch_result, text = true }):wait().stdout
+	if grep_result == nil then
+		return "git uwu"
+	end
+	local result = trim(grep_result:gsub("*", ""))
+	return result
+end
+
 local navic = require("nvim-navic")
 
 local comps = {
@@ -125,13 +168,13 @@ local comps = {
 		},
 	},
 	breadcrumbs = {
-		provider = function ()
-		  return navic.get_location()
+		provider = function()
+			return navic.get_location()
 		end,
-    enabled = function ()
-      return navic.is_available()
-    end,
-    left_sep = ""
+		enabled = function()
+			return navic.is_available()
+		end,
+		left_sep = "",
 	},
 	line_percent = {
 		provider = {
@@ -152,10 +195,9 @@ local comps = {
 	},
 	git = {
 		branch = {
-		  provider = function ()
-        return "WIP"
-		    --return vim.fn.system("git rev-parse --abbrev-ref HEAD")
-		  end,
+			provider = function()
+				return git_branch()
+			end,
 			left_sep = "block",
 			hl = {
 				fg = theme.yellow,
@@ -214,56 +256,55 @@ local comps = {
 }
 
 return {
-  bar = {
-    components = {
-      active = {
-        {
-          comps.mode,
-          comps.file,
-          comps.position,
-          comps.diag.error,
-          comps.diag.warn,
-          comps.diag.info,
-        },
-        {
-          comps.ft,
-          comps.git.diff.add,
-          comps.git.diff.change,
-          comps.git.diff.remove,
-          comps.git.branch,
-          comps.lsp,
-          comps.line_percent,
-          comps.scroll,
-        },
-      },
-      inactive = {
-        comps.file,
-        comps.diag.error,
-        comps.diag.warn,
-        comps.diag.info,
-      },
-    },
-    conditional_components = {},
-    custom_providers = {},
-    theme = theme,
-    vi_mode_colors = vi_mode_colors,
-    bg = theme.bg
-  },
-  winbar = {
-    components = {
-      active = {
-        {
-          comps.file,
-          comps.breadcrumbs
-        },
-        {
-        }
-      },
-      inactive = {
-        {
-          comps.file
-        }
-      }
-    }
-  }
+	bar = {
+		components = {
+			active = {
+				{
+					comps.mode,
+					comps.file,
+					comps.position,
+					comps.diag.error,
+					comps.diag.warn,
+					comps.diag.info,
+				},
+				{
+					comps.ft,
+					comps.git.diff.add,
+					comps.git.diff.change,
+					comps.git.diff.remove,
+					comps.git.branch,
+					comps.lsp,
+					comps.line_percent,
+					comps.scroll,
+				},
+			},
+			inactive = {
+				comps.file,
+				comps.diag.error,
+				comps.diag.warn,
+				comps.diag.info,
+			},
+		},
+		conditional_components = {},
+		custom_providers = {},
+		theme = theme,
+		vi_mode_colors = vi_mode_colors,
+		bg = theme.bg,
+	},
+	winbar = {
+		components = {
+			active = {
+				{
+					comps.file,
+					comps.breadcrumbs,
+				},
+				{},
+			},
+			inactive = {
+				{
+					comps.file,
+				},
+			},
+		},
+	},
 }

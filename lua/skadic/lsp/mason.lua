@@ -5,7 +5,8 @@ local opts = {
       package_pending = "",
       package_uninstalled = ""
     }
-  }
+  },
+  PATH = "prepend"
 }
 
 return opts

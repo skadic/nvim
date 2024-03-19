@@ -1,0 +1,5 @@
+std = "selene_lib"
+
+[lints]
+mixed_table = "allow"
+

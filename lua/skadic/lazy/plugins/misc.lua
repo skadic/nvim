@@ -6,12 +6,19 @@ return {
 		-- Discord Rich Presence
 		"andweeb/presence.nvim",
 		name = "presence",
+		enabled = false,
 		config = function()
 			local presence = require("presence")
 			presence:setup()
 		end,
 		lazy = true,
 		event = { "BufRead" },
+	},
+	{
+		"IogaMaster/neocord",
+		lazy = true,
+		event = "VeryLazy",
+		opts = {},
 	},
 	{
 		-- Zen-Mode for Neorg's presenter
@@ -32,15 +39,11 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		lazy = true,
 		event = "BufRead",
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
+		opts = {},
 	},
 	{
 		"mizlan/delimited.nvim",
-    lazy = true,
+		lazy = true,
 		opts = {
 			pre = function()
 				-- do something here
@@ -57,5 +60,9 @@ return {
 		end,
 		lazy = true,
 		ft = "markdown",
+	},
+	{
+		"ggandor/lightspeed.nvim",
+		opts = {},
 	},
 }
