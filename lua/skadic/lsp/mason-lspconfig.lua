@@ -10,6 +10,11 @@ local opts = {}
 
 mason_lsp.setup(opts)
 
+require("lspconfig").tinymist.setup({
+	on_attach = require("skadic.lsp.handlers").on_attach,
+	capabilities = require("skadic.lsp.handlers").capabilities,
+})
+
 mason_lsp.setup_handlers({
 	-- default handler for any lsp that doesn't have a specific handler
 	function(server_name)

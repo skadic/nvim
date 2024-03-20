@@ -66,7 +66,8 @@ return {
 				html = { { "prettierd", "prettier" } },
 				css = { { "prettierd", "prettier" } },
 				svelte = { { "prettierd", "prettier" } },
-        java = { "google-java-format" }
+        java = { "google-java-format" },
+        fennel = { "fnlfmt" }
 			},
 			formatters = {
 				mdslw = {
@@ -126,15 +127,6 @@ return {
 			})
 		end,
 	},
-	--[[{
-		-- for formatters and linters
-		"jose-elias-alvarez/null-ls.nvim",
-		lazy = true,
-		config = function()
-			require("skadic.lsp.null-ls")
-		end,
-		event = "BufRead",
-	},]]
 	{
 		-- Lsp Configuration for mason
 		"williamboman/mason-lspconfig.nvim",
@@ -255,6 +247,7 @@ return {
 			"nvim-treesitter/nvim-treesitter",
 			"alfaix/neotest-gtest",
 			"mrcjkb/rustaceanvim",
+      "nvim-neotest/nvim-nio"
 		},
 		config = function()
 			require("skadic.neotest")

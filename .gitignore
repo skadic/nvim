@@ -1,3 +1,7 @@
 plugin/*
 lazy-lock.json
 .vscode/
+**/*_.lua
+
+notify.lua
+ufo.lua

@@ -1,5 +1,6 @@
 return {
 	"folke/lazy.nvim", -- Have lazy manage itself
+  "rktjmp/hotpot.nvim", -- Have Lazymanage hotpot
 	{ "nvim-lua/popup.nvim", lazy = true }, -- An implementation of the Popup API from vim in Neovim
 	{ "nvim-lua/plenary.nvim", lazy = true }, -- Useful lua functions used ny lots of plugins
 	{
