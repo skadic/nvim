@@ -35,7 +35,7 @@ return {
 	},
 	{
 		-- Nice statusbar
-		"feline-nvim/feline.nvim",
+		"freddiehaddad/feline.nvim",
 		name = "feline",
 		dependencies = {
 			"SmiteshP/nvim-navic",
