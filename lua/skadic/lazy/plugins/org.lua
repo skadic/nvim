@@ -54,10 +54,10 @@ return {
 		},
 		opts = {
 			note_id_func = function(title)
-				local id = ""
+				local id = os.date("%Y%m%d%H%M") .. "-"
 				if title ~= nil then
 					-- If title is given, transform it into valid file name.
-					id = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+					id = id .. title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
 				else
 					-- If title is nil, just add 4 random uppercase letters to the suffix.
 					for _ = 1, 4 do
@@ -66,6 +66,7 @@ return {
 				end
 				return id
 			end,
+			disable_frontmatter = false,
 			workspaces = {
 				{
 					name = "Noumiso",
@@ -75,9 +76,9 @@ return {
 			templates = {
 				subdir = "_templates",
 			},
-      attachments = {
-        img_folder = "gfx"
-      }
+			attachments = {
+				img_folder = "gfx",
+			},
 		},
 	},
 }

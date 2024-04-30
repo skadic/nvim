@@ -56,6 +56,7 @@ create({ "BufReadPre", "BufNewFile" }, {
       o = { "<cmd>ObsidianOpen<cr>", "Open Note in Obsidian" },
       n = { "<cmd>ObsidianNew<cr>", "Create new Note" },
       s = { "<cmd>ObsidianSearch<cr>", "Search Vault" },
+      r = { "<cmd>ObsidianRename<cr>", "Rename Note" },
       f = { toggle_obsidian_follow, "Follow current Note in Obsidian" },
       l = { "<cmd>ObsidianLinks<cr>", "Show Links from this Note" },
       b = { "<cmd>ObsidianBacklinks<cr>", "Show Backlinks to this Note" },

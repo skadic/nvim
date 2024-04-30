@@ -148,7 +148,7 @@ M.on_attach = function(client, bufnr)
 	lsp_highlight_document(client)
 	require("nvim-navic").attach(client, bufnr)
 
-	vim.lsp.inlay_hint.enable(bufnr, true)
+	vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
