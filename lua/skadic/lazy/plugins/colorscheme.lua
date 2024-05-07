@@ -33,12 +33,40 @@ return {
 		"catppuccin/nvim",
 		name = "catppuccin",
 		opts = {
+			highlight_overrides = {
+				mocha = function(colors)
+					return {
+						Comment = { fg = colors.overlay0 },
+						LineNr = { fg = colors.overlay0 },
+						LspInlayHint = { fg = colors.overlay1, bg = "NONE" },
+					}
+				end,
+			},
 			styles = {
 				comments = { "italic" },
 				keywords = { "bold" },
 				booleans = { "bold" },
 				functions = { "bold" },
 				loops = { "bold" },
+			},
+			integrations = {
+				cmp = true,
+				gitsigns = false,
+				nvimtree = true,
+				treesitter = true,
+				notify = true,
+				mini = {
+					enabled = true,
+					indentscope_color = "",
+				},
+				fidget = true,
+				neotree = true,
+				navic = {
+					enabled = false,
+					custom_bg = "NONE", -- "lualine" will set background to mantle
+				},
+				which_key = true,
+				-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
 			},
 		},
 		lazy = true,

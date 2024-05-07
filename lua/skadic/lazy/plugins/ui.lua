@@ -76,8 +76,16 @@ return {
 	},
 	{
 		"j-hui/fidget.nvim",
-		config = true,
-		tag = "legacy",
+		config = function()
+			require("fidget").setup({
+				notification = {
+					override_vim_notify = true,
+					window = {
+						winblend = 0, -- Background color opacity in the notification window
+					},
+				},
+			})
+		end,
 	},
 	{
 		-- Debugger UI

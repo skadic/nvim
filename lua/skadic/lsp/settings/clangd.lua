@@ -14,4 +14,5 @@ server_opts.capabilities = vim.tbl_deep_extend(
 
 server_opts.capabilities.offset_encoding = "utf-8"
 server_opts.capabilities.offsetEncoding = "utf-8"
+server_opts.filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }
 return server_opts
