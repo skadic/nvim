@@ -7,6 +7,14 @@ return {
 			require("basic.treesitter")
 		end,
 	},
+  {
+    "aaronik/treewalker.nvim",
+    lazy = true,
+    cmd = "Treewalker",
+    dependencies = {
+		  "nvim-treesitter/nvim-treesitter",
+    }
+  },
 	"sindrets/diffview.nvim",
 	--[[ {
 		"justinmk/vim-sneak",

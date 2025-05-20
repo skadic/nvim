@@ -51,6 +51,10 @@ local function string_empty(str)
 end
 
 wk.add({
+  {"<C-j>", "<cmd>Treewalker Down<cr>", desc = "Move Down (Treewalker)"},
+  {"<C-k>", "<cmd>Treewalker Up<cr>", desc = "Move Up (Treewalker)"},
+  {"<C-h>", "<cmd>Treewalker Left<cr>", desc = "Move Left (Treewalker)"},
+  {"<C-l>", "<cmd>Treewalker Right<cr>", desc = "Move Right (Treewalker)"},
   {"\\", Snacks.picker.explorer, desc = "File Explorer"},
   {"<leader>e", Snacks.picker.explorer, desc = "File Explorer (Explorer)"},
   {"<leader>E", function () require("oil").toggle_float() end, desc = "File Explorer (Oil)"},
