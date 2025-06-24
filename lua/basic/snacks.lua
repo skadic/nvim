@@ -109,6 +109,8 @@ M.on_load = function()
 			end
 		end,
 	})
+	local comment_hl = vim.api.nvim_get_hl(0, { name = "Comment" })
+	vim.api.nvim_set_hl(0, "SnacksPickerDir", { fg = comment_hl.fg, bg = nil })
 end
 
 return M
