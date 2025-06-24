@@ -16,6 +16,7 @@ return {
 	},
 	{
 		"folke/which-key.nvim",
+    version = "*",
 		opts = {
 			win = {
 				border = "rounded",

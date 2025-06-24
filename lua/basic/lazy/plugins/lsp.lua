@@ -22,6 +22,7 @@ return {
 	},
 	{
 		"stevearc/conform.nvim",
+    version = "*",
 		event = { "BufReadPre", "BufWritePre", "BufNewFile" },
 		opts = {
 			formatters_by_ft = {
@@ -71,6 +72,7 @@ return {
 	},
 	{
 		"nvim-neotest/neotest",
+    version = "*",
 		lazy = true,
 		cmd = "Neotest",
 		ft = { "java", "rust" },
