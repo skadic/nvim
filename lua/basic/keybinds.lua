@@ -47,51 +47,57 @@ require("mini.icons")
 require("snacks")
 
 local function string_empty(str)
-  return str == '' or str == nil
+  return str == "" or str == nil
 end
 
 wk.add({
-  {"<C-j>", "<cmd>Treewalker Down<cr>", desc = "Move Down (Treewalker)"},
-  {"<C-k>", "<cmd>Treewalker Up<cr>", desc = "Move Up (Treewalker)"},
-  {"<C-h>", "<cmd>Treewalker Left<cr>", desc = "Move Left (Treewalker)"},
-  {"<C-l>", "<cmd>Treewalker Right<cr>", desc = "Move Right (Treewalker)"},
-  {"\\", Snacks.picker.explorer, desc = "File Explorer"},
-  {"<leader>e", Snacks.picker.explorer, desc = "File Explorer (Explorer)"},
-  {"<leader>E", function () require("oil").toggle_float() end, desc = "File Explorer (Oil)"},
-	--{ "<leader>e", "<cmd>Neotree toggle<cr>", desc = "File Explorer", icon = "" },
-	{ "<leader>L", "<cmd>Lazy<cr>", desc = "Open Lazy", icon = "󰒲" },
-	{ "<leader>M", "<cmd>Mason<cr>", desc = "Open Mason", icon = "󰏓" },
+  { "<C-j>", "<cmd>Treewalker Down<cr>", desc = "Move Down (Treewalker)" },
+  { "<C-k>", "<cmd>Treewalker Up<cr>", desc = "Move Up (Treewalker)" },
+  { "<C-h>", "<cmd>Treewalker Left<cr>", desc = "Move Left (Treewalker)" },
+  { "<C-l>", "<cmd>Treewalker Right<cr>", desc = "Move Right (Treewalker)" },
+  { "\\", Snacks.picker.explorer, desc = "File Explorer" },
+  { "<leader>e", Snacks.picker.explorer, desc = "File Explorer (Explorer)" },
+  {
+    "<leader>E",
+    function()
+      require("oil").toggle_float()
+    end,
+    desc = "File Explorer (Oil)",
+  },
+  --{ "<leader>e", "<cmd>Neotree toggle<cr>", desc = "File Explorer", icon = "" },
+  { "<leader>L", "<cmd>Lazy<cr>", desc = "Open Lazy", icon = "󰒲" },
+  { "<leader>M", "<cmd>Mason<cr>", desc = "Open Mason", icon = "󰏓" },
 
-	-- Find
-	{ "<leader>f", group = "Find" },
-	{
-		"<leader>fg",
-		function()
-			-- We want to just call the normal find files command if the current dir is not a git directory
-			if string_empty(Snacks.git.get_root(0)) then
-				Snacks.picker.files()
+  -- Find
+  { "<leader>f", group = "Find" },
+  {
+    "<leader>fg",
+    function()
+      -- We want to just call the normal find files command if the current dir is not a git directory
+      if string_empty(Snacks.git.get_root(0)) then
+        Snacks.picker.files()
       else
-				Snacks.picker.git_files()
+        Snacks.picker.git_files()
       end
-		end,
-		desc = "Git Files",
-    icon = MiniIcons.get("filetype", "git")
-	},
-	{ "<leader>ff", Snacks.picker.files, desc = "Find File", icon = MiniIcons.get("default", "file") },
-	{ "<leader>fb", Snacks.picker.buffers, desc = "Search Buffers", icon = MiniIcons.get("default", "file") },
-	{ "<leader>fl", Snacks.picker.grep, desc = "Live Grep", icon = MiniIcons.get("filetype", "text") },
-	{ "<leader>fh", Snacks.picker.help, desc = "Search Help" },
-	{ "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Todos" },
+    end,
+    desc = "Git Files",
+    icon = MiniIcons.get("filetype", "git"),
+  },
+  { "<leader>ff", Snacks.picker.files, desc = "Find File", icon = MiniIcons.get("default", "file") },
+  { "<leader>fb", Snacks.picker.buffers, desc = "Search Buffers", icon = MiniIcons.get("default", "file") },
+  { "<leader>fl", Snacks.picker.grep, desc = "Live Grep", icon = MiniIcons.get("filetype", "text") },
+  { "<leader>fh", Snacks.picker.help, desc = "Search Help" },
+  { "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Todos" },
 
-	-- LSP
-	{ "<leader>l", group = "Language Server", icon = "" },
-	{
-		"<leader>lf",
-		function()
-			require("conform").format()
-		end,
-		desc = "Format File",
-	},
+  -- LSP
+  { "<leader>l", group = "Language Server", icon = "" },
+  {
+    "<leader>lf",
+    function()
+      require("conform").format()
+    end,
+    desc = "Format File",
+  },
 
   -- Folds
   { "zR", require("ufo").openAllFolds, desc = "Open all Folds" },
@@ -128,8 +134,8 @@ keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
 return {
   add = wk.add,
-	register = function(binds, key_opts)
-		wk.register(binds, key_opts or wk_opts)
-	end,
-	opts = wk_opts,
+  register = function(binds, key_opts)
+    wk.register(binds, key_opts or wk_opts)
+  end,
+  opts = wk_opts,
 }

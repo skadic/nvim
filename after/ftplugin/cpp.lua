@@ -1,5 +1,3 @@
-
-
 --[[ local null_ls_status_ok, null_ls = pcall(require, "null-ls")
 if not null_ls_status_ok then
 	return
@@ -10,7 +8,7 @@ local wk = require("which-key")
 local wk_opts = { mode = "n", noremap = true, silent = true }
 
 wk.add({
-  { "<leader>lv", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Toggle between source file and header" }
+  { "<leader>lv", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Toggle between source file and header" },
 }, wk_opts)
 
 --[[ null_ls.register(diagnostics.cppcheck.with({

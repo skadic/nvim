@@ -6,5 +6,5 @@ local wk = require("which-key")
   {"<leader>lK", desc = "", remap = false }
 })]]
 wk.register({
-  ["<leader>lK"] = { vim.cmd('execute "normal gg/#<cr>VG"') }
-},{noremap = true, silent = true})
+  ["<leader>lK"] = { vim.cmd('execute "normal gg/#<cr>VG"') },
+}, { noremap = true, silent = true })

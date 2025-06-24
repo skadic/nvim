@@ -10,7 +10,7 @@ vim.opt.ignorecase = true -- ignore case in search patterns
 vim.opt.mouse = "a" -- allow the mouse to be used in neovim
 vim.opt.pumheight = 10 -- pop up menu height
 vim.opt.showmode = false -- we don't need to see things like -- INSERT -- anymore
-vim.opt.showtabline = 1 -- don't show default tabs. feline does that 
+vim.opt.showtabline = 1 -- don't show default tabs. feline does that
 vim.opt.smartcase = true -- smart case
 vim.opt.smartindent = true -- make indenting smarter again
 vim.opt.splitbelow = true -- force all horizontal splits to go below current window
@@ -33,17 +33,17 @@ vim.opt.wrap = false -- display lines as one long line
 vim.opt.scrolloff = 8 -- is one of my fav
 vim.opt.sidescrolloff = 8
 vim.opt.guifont = "agave Nerd Font:h17" -- the font used in graphical neovim applications
-vim.o.foldcolumn = '0' -- '0' is not bad
+vim.o.foldcolumn = "0" -- '0' is not bad
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 --vim.opt.list = true
 --vim.opt.listchars:append "space:⋅"
 --vim.opt.listchars:append "eol:↴"
 
-vim.opt.shortmess:append "c"
+vim.opt.shortmess:append("c")
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
-vim.cmd "set whichwrap+=<,>,[,],h,l"
-vim.cmd [[set iskeyword+=-]]
-vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
+vim.cmd("set whichwrap+=<,>,[,],h,l")
+vim.cmd([[set iskeyword+=-]])
+vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work

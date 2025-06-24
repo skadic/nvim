@@ -3,10 +3,10 @@ local opts = {
     icons = {
       package_installed = "󰏓",
       package_pending = "󰏓",
-      package_uninstalled = ""
-    }
+      package_uninstalled = "",
+    },
   },
-  PATH = "prepend"
+  PATH = "prepend",
 }
 
 return opts
