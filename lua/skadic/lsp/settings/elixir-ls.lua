@@ -1,5 +1,0 @@
-return {
-  settings = {
-    filetypes = { "exs" },
-  },
-}
