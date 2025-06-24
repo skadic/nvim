@@ -116,33 +116,17 @@ return {
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-		config = {
+    dependencies = { "echasnovski/mini.icons", },
+    opts = {
 			on_attach = function()
 				local wk = require("basic.keybinds")
 				local gs = require("gitsigns")
 
-				wk.register({
-					g = {
-						name = "Git",
-						t = {
-							function()
-								gs.toggle_current_line_blame()
-							end,
-							"Toggle current line blame",
-						},
-						d = {
-							function()
-								gs.diffthis("~")
-							end,
-							"Diff",
-						},
-						b = {
-							function()
-								gs.blame_line({ full = true })
-							end,
-							"Diff",
-						},
-					},
+				wk.add({
+          { "<leader>g", group = "Git" },
+          { "<leader>gt", function() gs.toggle_current_line_blame() end, desc = "Toggle current line blame" },
+					{ "<leader>gd", function() gs.diffthis("~") end, "Diff", },
+					{ "<leader>gb", function() gs.blame_line({ full = true }) end, desc = "Blame Line" },
 				})
 			end,
 		},
@@ -159,7 +143,7 @@ return {
 		"kylechui/nvim-surround",
 		version = "*", -- Use for stability; omit to use `main` branch for the latest features
 		event = "VeryLazy",
-		config = {},
+		opts = {},
 	},
 	{
 		"folke/todo-comments.nvim",

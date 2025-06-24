@@ -43,39 +43,43 @@ vim.keymap.set("n", "]d", require("delimited").goto_next, opts)
 
 local wk_opts = { mode = "n", prefix = "<leader>", noremap = true, silent = true }
 
-wk.register({
-	e = { "<cmd>Neotree toggle<cr>", "File Explorer" },
-	L = { "<cmd>Lazy<cr>", "Open Lazy" },
-	M = { "<cmd>Mason<cr>", "Open Mason" },
-	f = {
-		name = "Find",
-		g = {
-			function()
-				-- We want to just call the normal find files command if the current dir is not a git directory
-				local status_ok, _ = pcall(vim.cmd, "Telescope git_files")
-				if not status_ok then
-					vim.cmd("Telescope find_files")
-				end
-			end,
-			"Git Files",
-		},
-		f = { "<cmd>Telescope find_files<cr>", "Find File" },
-		b = { "<cmd>Telescope buffers<cr>", "Search Buffers" },
-		--p = { "<cmd>Telescope projects theme=dropdown<cr>", "Projects" },
-		l = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
-		--n = { "<cmd>Telescope notify<cr>", "Search Notifications" },
-		h = { "<cmd>Telescope help_tags<cr>", "Search Help" },
-		--t = { "<cmd>TodoTelescope<cr>", "Todos" },
+require("mini.icons")
+
+wk.add({
+	{ "<leader>e", "<cmd>Neotree toggle<cr>", desc = "File Explorer", icon = "" },
+	{ "<leader>L", "<cmd>Lazy<cr>", desc = "Open Lazy", icon = "󰒲" },
+	{ "<leader>M", "<cmd>Mason<cr>", desc = "Open Mason", icon = "󰏓" },
+
+	-- Find
+	{ "<leader>f", group = "Find" },
+	{
+		"<leader>fg",
+		function()
+			-- We want to just call the normal find files command if the current dir is not a git directory
+			local status_ok, _ = pcall(vim.cmd, "Telescope git_files")
+			if not status_ok then
+				vim.cmd("Telescope find_files")
+			end
+		end,
+		desc = "Git Files",
+    icon = MiniIcons.get("filetype", "git")
 	},
-	l = {
-		f = {
-			function()
-				require("conform").format()
-			end,
-			"Format File",
-		},
+	{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", icon = MiniIcons.get("default", "file") },
+	{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Search Buffers", icon = MiniIcons.get("default", "file") },
+	{ "<leader>fl", "<cmd>Telescope live_grep<cr>", desc = "Live Grep", icon = MiniIcons.get("filetype", "text") },
+	{ "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Search Help" },
+	{ "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Todos" },
+
+	-- LSP
+	{ "<leader>l", group = "LSP", icon = "" },
+	{
+		"<leader>lf",
+		function()
+			require("conform").format()
+		end,
+		desc = "Format File",
 	},
-}, wk_opts)
+})
 
 -- Insert --
 -- Press jk fast to enter normal mode
@@ -106,6 +110,7 @@ keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
 return {
+  add = wk.add,
 	register = function(binds, key_opts)
 		wk.register(binds, key_opts or wk_opts)
 	end,

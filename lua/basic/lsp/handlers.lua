@@ -60,49 +60,26 @@ local function lsp_highlight_document(client)
 end
 
 local function lsp_keymaps(bufnr)
-	local wk_opts = { mode = "n", prefix = "g", noremap = true, silent = true, buffer = bufnr }
 	local wk = require("which-key")
 
-	wk.register({
-		d = { "<cmd>Telescope lsp_definitions<CR>", "Definition" },
-		i = { "<cmd>Telescope lsp_implementations<CR>", "Implementation" },
-		r = { "<cmd>Telescope lsp_references<CR>", "References" },
-		s = { "<cmd>Telescope lsp_document_symbols<CR>", "Document Symbols" },
-		S = { "<cmd>Telescope lsp_workspace_symbols<CR>", "Workspace Symbols" },
-	}, wk_opts)
+	wk.add({
+		{ "gd", "<cmd>Telescope lsp_definitions<CR>", desc = "Definition" },
+		{ "gi", "<cmd>Telescope lsp_implementations<CR>", desc = "Implementation" },
+		{ "gr", "<cmd>Telescope lsp_references<CR>", desc = "References" },
+		{ "gs", "<cmd>Telescope lsp_document_symbols<CR>", desc = "Document Symbols" },
+		{ "gS", "<cmd>Telescope lsp_workspace_symbols<CR>", desc = "Workspace Symbols" },
+	})
 
-	wk_opts.prefix = "<leader>l"
-	wk.register({
-		name = "Language Server",
-		a = { function() require("actions-preview").code_actions() end, "Code Action" },
-		e = { "<Plug>(doge-generate)", "Generate Documentation" },
-		f = {
-			function()
-				--vim.lsp.buf.format()
-				require("conform").format()
-			end,
-			"Format File",
-		},
-		c = {
-			function()
-				vim.lsp.codelens.run()
-			end,
-			"Run Code Lens",
-		},
-		h = {
-			function()
-				vim.lsp.buf.hover()
-			end,
-			"Hover",
-		},
-		r = { function() vim.lsp.buf.rename() end, "Rename" },
-		s = {
-			function()
-				vim.lsp.buf.signature_help()
-			end,
-			"Signature Help",
-		},
-	}, wk_opts)
+	wk.add({
+    { "<leader>l", group = "Language Server" },
+		{ "<leader>la", function() require("actions-preview").code_actions() end, desc = "Code Action" },
+		{ "<leader>le", "<Plug>(doge-generate)", desc = "Generate Documentation" },
+		{ "<leader>lf", function() require("conform").format() end, desc = "Format File", },
+		{ "<leader>lc", function() vim.lsp.codelens.run() end, desc = "Run Code Lens", },
+		{ "<leader>lh", function() vim.lsp.buf.hover() end, desc = "Hover", },
+    { "<leader>lr", function() vim.lsp.buf.rename() end, desc = "Rename" },
+		{ "<leader>ls", function() vim.lsp.buf.signature_help() end, desc = "Signature Help", }
+  })
 
 	-- Setup the goto commands for diagnostics
 	local goto_next, goto_prev
@@ -115,11 +92,10 @@ local function lsp_keymaps(bufnr)
 		goto_prev = vim.diagnostic.goto_prev
 	end
 
-	wk_opts.prefix = ""
-	wk.register({
-		["[d"] = { goto_prev, "Previous Diagnostic" },
-		["]d"] = { goto_next, "Next Diagnostic" },
-	}, wk_opts)
+	wk.add({
+	  { "[d", goto_prev, desc = "Previous Diagnostic" },
+		{ "]d", goto_next, desc = "Next Diagnostic" },
+	})
 
 end
 

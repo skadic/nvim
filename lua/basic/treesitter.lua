@@ -1,8 +1,22 @@
 require("nvim-treesitter.configs").setup({
-	ensure_installed = { "xml", "json", "css", "html", "java", "lua", "bash", "fish", "yaml" },
+	ensure_installed = {
+		"xml",
+		"json",
+		"css",
+		"html",
+		"java",
+		"lua",
+		"bash",
+		"fish",
+		"yaml",
+		"vimdoc",
+		"luadoc",
+		"vim",
+		"markdown",
+	},
 	sync_install = false,
 	ignore_install = { "" }, -- List of parsers to ignore installing
-    
+
 	highlight = {
 		enable = true, -- false will disable the whole extension
 		disable = { "" }, -- list of language that will be disabled
