@@ -27,9 +27,14 @@ return {
 			require("basic.telescope")
 		end,
 	},
-	{
-		"loctvl842/monokai-pro.nvim",
-	},
+	"loctvl842/monokai-pro.nvim",
+  { 
+    "sainnhe/sonokai",
+    config = function()
+      vim.g.sonokai_enable_italic = true
+      vim.g.sonokai_style = 'shusia'
+    end
+  },
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
@@ -98,7 +103,7 @@ return {
 	},
 	{
 		"williamboman/mason.nvim",
-		opts = {},
+		opts = require("basic.lsp.mason"),
 	},
 	{
 		"mizlan/delimited.nvim",

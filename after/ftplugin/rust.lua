@@ -1,7 +1,7 @@
 local wk = require("which-key")
 local wk_opts = { mode = "n", prefix="<leader>l", noremap = true, silent = true }
 
-require("skadic.lsp.settings.rust_analyzer")
+require("basic.lsp.settings.rust_analyzer")
 
 wk.register({
   x = { function() require("ferris.methods.expand_macro")() end, "Expand macro" },
