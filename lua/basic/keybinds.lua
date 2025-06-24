@@ -44,10 +44,10 @@ vim.keymap.set("n", "]d", require("delimited").goto_next, opts)
 local wk_opts = { mode = "n", prefix = "<leader>", noremap = true, silent = true }
 
 wk.register({
-  e = { "<cmd>Neotree toggle<cr>", "File Explorer" },
+	e = { "<cmd>Neotree toggle<cr>", "File Explorer" },
 	L = { "<cmd>Lazy<cr>", "Open Lazy" },
 	M = { "<cmd>Mason<cr>", "Open Mason" },
-  f = {
+	f = {
 		name = "Find",
 		g = {
 			function()
@@ -65,11 +65,16 @@ wk.register({
 		l = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
 		--n = { "<cmd>Telescope notify<cr>", "Search Notifications" },
 		h = { "<cmd>Telescope help_tags<cr>", "Search Help" },
-    --t = { "<cmd>TodoTelescope<cr>", "Todos" },
+		--t = { "<cmd>TodoTelescope<cr>", "Todos" },
 	},
-  l = {
-    f = { function() require("conform").format() end, "Format File" }
-  }
+	l = {
+		f = {
+			function()
+				require("conform").format()
+			end,
+			"Format File",
+		},
+	},
 }, wk_opts)
 
 -- Insert --
@@ -99,3 +104,10 @@ keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
 keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+
+return {
+	register = function(binds, key_opts)
+		wk.register(binds, key_opts or wk_opts)
+	end,
+	opts = wk_opts,
+}

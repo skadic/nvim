@@ -7,6 +7,7 @@ return {
 			require("basic.treesitter")
 		end,
 	},
+	"justinmk/vim-sneak",
 	{
 		"folke/which-key.nvim",
 	},
@@ -27,22 +28,29 @@ return {
 			require("basic.telescope")
 		end,
 	},
-	"loctvl842/monokai-pro.nvim",
-  { 
-    "sainnhe/sonokai",
-    config = function()
-      vim.g.sonokai_enable_italic = true
-      vim.g.sonokai_style = 'shusia'
-    end
-  },
+	{
+		"echasnovski/mini.icons",
+		opts = {},
+		lazy = true,
+		specs = {
+			{ "nvim-tree/nvim-web-devicons", enabled = false, optional = true },
+		},
+		init = function()
+			package.preload["nvim-web-devicons"] = function()
+				require("mini.icons").mock_nvim_web_devicons()
+				return package.loaded["nvim-web-devicons"]
+			end
+		end,
+	},
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			--"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"echasnovski/mini.icons",
 			"MunifTanjim/nui.nvim",
-			-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+			"3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
 			-- Allows you to pick windows
 			{
 				"s1n7ax/nvim-window-picker",
@@ -82,6 +90,10 @@ return {
 				lua = { "stylua" },
 				xml = { "xmlformat" },
 				json = { "jq" },
+				rust = { "rustfmt" },
+				toml = { "taplo" },
+				sql = { "sqlfluff" },
+				yaml = { "yamlfmt" },
 			},
 		},
 	},
@@ -98,8 +110,42 @@ return {
 				yaml = { "yamllint" },
 				lua = { "selene" },
 				json = { "jsonlint" },
+				sql = { "sqlfluff" },
 			}
 		end,
+	},
+	{
+		"lewis6991/gitsigns.nvim",
+		config = {
+			on_attach = function()
+				local wk = require("basic.keybinds")
+				local gs = require("gitsigns")
+
+				wk.register({
+					g = {
+						name = "Git",
+						t = {
+							function()
+								gs.toggle_current_line_blame()
+							end,
+							"Toggle current line blame",
+						},
+						d = {
+							function()
+								gs.diffthis("~")
+							end,
+							"Diff",
+						},
+						b = {
+							function()
+								gs.blame_line({ full = true })
+							end,
+							"Diff",
+						},
+					},
+				})
+			end,
+		},
 	},
 	{
 		"williamboman/mason.nvim",
@@ -108,6 +154,12 @@ return {
 	{
 		"mizlan/delimited.nvim",
 		opts = {},
+	},
+	{
+		"kylechui/nvim-surround",
+		version = "*", -- Use for stability; omit to use `main` branch for the latest features
+		event = "VeryLazy",
+		config = {},
 	},
 	{
 		"folke/todo-comments.nvim",
