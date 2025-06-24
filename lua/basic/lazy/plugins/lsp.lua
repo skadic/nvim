@@ -18,13 +18,20 @@ return {
 	{
 		"aznhe21/actions-preview.nvim",
 		lazy = true,
-    event = { "LspAttach" },
+		event = { "LspAttach" },
 	},
 	{
 		"stevearc/conform.nvim",
-    event = { "BufReadPre", "BufWritePre", "BufNewFile" },
+		event = { "BufReadPre", "BufWritePre", "BufNewFile" },
 		opts = {
 			formatters_by_ft = {
+				javascript = { "biome" },
+				typescript = { "biome" },
+				javascriptreact = { "biome" },
+				typescriptreact = { "biome" },
+				html = { "htmlbeautifier" },
+				css = { "biome" },
+				svelte = { "biome" },
 				lua = { "stylua" },
 				xml = { "xmlformat" },
 				json = { "jq" },
@@ -40,8 +47,8 @@ return {
 	},
 	{
 		"mfussenegger/nvim-lint",
-    lazy = true,
-    event = { "BufReadPre", "BufWritePre", "BufNewFile" },
+		lazy = true,
+		event = { "BufReadPre", "BufWritePre", "BufNewFile" },
 		config = function()
 			vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertLeave" }, {
 				callback = function()
@@ -52,8 +59,13 @@ return {
 			require("lint").linters_by_ft = {
 				yaml = { "yamllint" },
 				lua = { "selene" },
-				json = { "jsonlint" },
+				json = { "biomejs" },
+				svelte = { "biomejs" },
 				sql = { "sqlfluff" },
+				typescript = { "oxlint", "biomejs" },
+				javascript = { "oxlint", "biomejs" },
+				html = { "prettierd" },
+				css = { "biome" },
 			}
 		end,
 	},
@@ -77,9 +89,5 @@ return {
 			require("neotest").setup(opts)
 		end,
 	},
-  { "ray-x/lsp_signature.nvim",
-    lazy = true,
-    event = "LspAttach",
-    opts = {}
-  },
+	{ "ray-x/lsp_signature.nvim", lazy = true, event = "LspAttach", opts = {} },
 }

@@ -91,14 +91,14 @@ local function lsp_keymaps(bufnr)
 		{
 			"[d",
 			function()
-				vim.diagnostic.jump({ count = 1, float = true })
+				vim.diagnostic.jump({ count = -1, float = true })
 			end,
 			desc = "Previous Diagnostic",
 		},
 		{
 			"]d",
 			function()
-				vim.diagnostic.jump({ count = -1, float = true })
+				vim.diagnostic.jump({ count = 1, float = true })
 			end,
 			desc = "Next Diagnostic",
 		},
