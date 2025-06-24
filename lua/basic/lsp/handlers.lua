@@ -1,5 +1,9 @@
 local M = {}
 
+local normal_hl = vim.api.nvim_get_hl(0, {name = "Normal"})
+local comment_hl = vim.api.nvim_get_hl(0, {name = "Comment"})
+vim.api.nvim_set_hl(0, "LspInlayHint", { fg = comment_hl.fg, bg = normal_hl.bg })
+
 local function lsp_highlight_document(client)
 	-- Set autocommands conditional on server_capabilities
 	if client.server_capabilities.documentHighlightProvider then
@@ -17,6 +21,8 @@ local function lsp_highlight_document(client)
 		)
 	end
 end
+
+local MiniIcons = require("mini.icons")
 
 local function lsp_keymaps(bufnr)
 	local wk = require("which-key")
@@ -108,7 +114,7 @@ end
 M.on_attach = function(client, bufnr)
 	lsp_keymaps(bufnr)
 	lsp_highlight_document(client)
-	require("lsp_signature").on_attach({}, bufnr)
+	--require("lsp_signature").on_attach({}, bufnr)
 
 	if not client == "jdtls" then
 		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
@@ -117,11 +123,20 @@ end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
+--[[
 local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if not status_ok then
 	return M
 end
 
 M.capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+]]
+
+local status_ok, blink = pcall(require, "blink.cmp")
+if not status_ok then
+	return M
+end
+
+M.capabilities = blink.get_lsp_capabilities(capabilities)
 
 return M
