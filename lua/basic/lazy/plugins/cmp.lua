@@ -79,7 +79,9 @@ return {
 				--["<Down>"] = { "select_next", "fallback" },
 				["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
 				["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
-				cmdline = {
+			},
+			cmdline = {
+				keymap = {
 					["<Tab>"] = { "show", "select_next", "fallback" },
 					["<S-Tab>"] = { "show", "select_prev", "fallback" },
 					--["<Up>"] = { "select_prev", "fallback" },

@@ -14,6 +14,12 @@ return {
 		},
 	},
 	{
+		"cordx56/rustowl",
+		lazy = true,
+		ft = "rust",
+		dependencies = { "neovim/nvim-lspconfig" },
+	},
+	{
 		"nvim-java/nvim-java",
 		lazy = true,
 		ft = "java",
