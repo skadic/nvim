@@ -1,6 +1,6 @@
 return {
 	"folke/lazy.nvim", -- Have lazy manage itself
-  "rktjmp/hotpot.nvim", -- Have Lazymanage hotpot
+	"rktjmp/hotpot.nvim", -- Have Lazymanage hotpot
 	{ "nvim-lua/popup.nvim", lazy = true }, -- An implementation of the Popup API from vim in Neovim
 	{ "nvim-lua/plenary.nvim", lazy = true }, -- Useful lua functions used ny lots of plugins
 	{
@@ -14,18 +14,17 @@ return {
 		end,
 	},
 	{
-		"mhinz/vim-signify",
-		config = function()
-			require("skadic.vim_signify")
-		end,
-	},
-	{
 		-- Telescope
 		"nvim-telescope/telescope.nvim",
 		lazy = true,
 		cmd = "Telescope",
 		dependencies = {
-			"nvim-telescope/telescope-fzf-native.nvim",
+			{
+				-- A native Sorter for telescope to increase performance
+				"nvim-telescope/telescope-fzf-native.nvim",
+				build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+				lazy = true,
+			},
 			"nvim-telescope/telescope-media-files.nvim", -- Search for media files
 			"nvim-telescope/telescope-file-browser.nvim", -- A file browser
 			"gbrlsnchs/telescope-lsp-handlers.nvim", -- Better LSP Functions
@@ -34,12 +33,6 @@ return {
 		config = function()
 			require("skadic.telescope")
 		end,
-	},
-	{
-		-- A native Sorter for telescope to increase performance
-		"nvim-telescope/telescope-fzf-native.nvim",
-		build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-		lazy = true,
 	},
 	{
 		-- Modify surrounding symbols

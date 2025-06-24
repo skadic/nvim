@@ -90,6 +90,8 @@ return {
 	},
 	{
 		"cohama/lexima.vim",
+    lazy = true,
+    event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			require("basic.lexima")
 		end,
@@ -111,7 +113,7 @@ return {
 	{
 		"mfussenegger/nvim-lint",
 		config = function()
-			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+			vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertLeave" }, {
 				callback = function()
 					require("lint").try_lint()
 				end,
@@ -127,6 +129,8 @@ return {
 	},
 	{
 		"lewis6991/gitsigns.nvim",
+    lazy = true,
+    event = { "BufReadPre", "BufNewFile" },
 		dependencies = { "echasnovski/mini.icons" },
 		opts = {
 			on_attach = function()
@@ -163,6 +167,8 @@ return {
 	{
 		"williamboman/mason.nvim",
 		opts = require("basic.lsp.mason"),
+    lazy = true,
+    cmd = "Mason"
 	},
 	{
 		"mizlan/delimited.nvim",
@@ -214,5 +220,15 @@ return {
 			require("neoscroll").setup({})
 		end,
 	},
-  { 'mistweaverco/kulala.nvim', opts = {} }
+	{
+		"stevearc/oil.nvim",
+		---@module 'oil'
+		---@type oil.SetupOpts
+		opts = {},
+    lazy = true,
+    cmd = "Oil",
+		-- Optional dependencies
+		dependencies = { { "echasnovski/mini.icons", opts = {} } },
+		-- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+	},
 }

@@ -1,7 +1,11 @@
 return {
-	"loctvl842/monokai-pro.nvim",
+	{
+		"loctvl842/monokai-pro.nvim",
+		lazy = true,
+	},
 	{
 		"EdenEast/nightfox.nvim",
+		lazy = true,
 		opts = {
 			options = {
 				styles = {
@@ -29,6 +33,7 @@ return {
 	},
 	{
 		"sainnhe/sonokai",
+		lazy = true,
 		config = function()
 			vim.g.sonokai_enable_italic = true
 			vim.g.sonokai_style = "shusia"

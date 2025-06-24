@@ -55,7 +55,11 @@ return {
 	{
 		-- Allows to see keybinds
 		"folke/which-key.nvim",
-		config = true,
+		opts = {
+      win = {
+        border = "rounded"
+      }
+    },
 		lazy = true,
 	},
 
