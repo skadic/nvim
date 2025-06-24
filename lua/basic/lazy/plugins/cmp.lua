@@ -23,7 +23,11 @@ return {
 			completion = {
 				ghost_text = { enabled = true },
 				list = {
-					selection = "manual", --[[ do not preselect first item when completion window shows ]]
+					selection = {
+						--[[ do not preselect first item when completion window shows ]]
+						preselect = false,
+						auto_insert = false,
+					},
 				},
 				documentation = { auto_show = true, auto_show_delay_ms = 200, window = { border = "rounded" } },
 				menu = {
