@@ -45,8 +45,12 @@ local wk_opts = { mode = "n", prefix = "<leader>", noremap = true, silent = true
 
 require("mini.icons")
 
+
 wk.add({
-	{ "<leader>e", "<cmd>Neotree toggle<cr>", desc = "File Explorer", icon = "" },
+  {"\\", function () require("oil").toggle_float() end, desc = "File Explorer"},
+  {"<leader>e", function () require("oil").toggle_float() end, desc = "File Explorer (Oil)"},
+  {"<leader>E", function () require("mini.files") MiniFiles.open() end, desc = "File Explorer (MiniFiles)"},
+	--{ "<leader>e", "<cmd>Neotree toggle<cr>", desc = "File Explorer", icon = "" },
 	{ "<leader>L", "<cmd>Lazy<cr>", desc = "Open Lazy", icon = "󰒲" },
 	{ "<leader>M", "<cmd>Mason<cr>", desc = "Open Mason", icon = "󰏓" },
 
@@ -71,7 +75,7 @@ wk.add({
 	{ "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Todos" },
 
 	-- LSP
-	{ "<leader>l", group = "Language Server", icon = MiniIcons.get("default", "lsp") },
+	{ "<leader>l", group = "Language Server", icon = "" },
 	{
 		"<leader>lf",
 		function()
