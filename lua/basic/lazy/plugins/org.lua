@@ -5,7 +5,7 @@ return {
 		version = "*",
     enabled = false,
 		dependencies = {
-			{ "3rd/image.nvim", opts = {} },
+			--{ "3rd/image.nvim", opts = {} },
 			{ "nvim-neorg/neorg-telescope" },
 		},
 		config = function()

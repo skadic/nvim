@@ -7,7 +7,7 @@ return {
 			--"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"echasnovski/mini.icons",
 			"MunifTanjim/nui.nvim",
-			"3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+			--"3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
 			-- Allows you to pick windows
 			{
 				"s1n7ax/nvim-window-picker",
