@@ -1,12 +1,13 @@
 return {
 	{
-		"williamboman/mason.nvim",
+		"mason-org/mason.nvim",
 		opts = require("basic.lsp.mason"),
 		lazy = true,
 		cmd = "Mason",
+    version = "*"
 	},
 	{
-		"williamboman/mason-lspconfig.nvim",
+		"mason-org/mason-lspconfig.nvim",
 		opts = require("basic.lsp.mason-lspconfig"),
 		lazy = true,
 		event = { "BufReadPre", "BufNewFile" },
@@ -14,6 +15,7 @@ return {
 			"neovim/nvim-lspconfig",
 			"williamboman/mason.nvim",
 		},
+    version = "*"
 	},
 	{
 		"aznhe21/actions-preview.nvim",
@@ -43,6 +45,9 @@ return {
 				gleam = { "gleam" },
 				just = { "just" },
 				java = { "google-java-format" },
+        zsh = { "beautysh" },
+        sh = { "beautysh" },
+        bash = { "beautysh" },
 			},
 		},
 	},
@@ -67,6 +72,9 @@ return {
 				javascript = { "oxlint", "biomejs" },
 				html = { "prettierd" },
 				css = { "biome" },
+        sh = { "shellcheck" },
+        bash = { "shellcheck" },
+        zsh = { "shellcheck" },
 			}
 		end,
 	},

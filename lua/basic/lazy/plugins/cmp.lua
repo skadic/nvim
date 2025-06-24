@@ -3,7 +3,7 @@ return {
 		"Saghen/blink.cmp",
 		lazy = true,
 		event = { "BufReadPre", "BufNewFile" },
-		version = "0.13",
+		version = "1.3",
 		dependencies = {
 			"rafamadriz/friendly-snippets", -- a bunch of snippets to use
 		},

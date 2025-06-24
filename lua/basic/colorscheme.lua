@@ -1,4 +1,4 @@
-local colorscheme = "monokai-pro-ristretto"
+local colorscheme = "monokai-pro"
 
 local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 
