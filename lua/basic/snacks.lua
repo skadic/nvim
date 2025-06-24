@@ -45,7 +45,6 @@ end
 local function dashboard_opts()
 	return {
 		enabled = true,
-    pick = "telescope.nvim",
 		sections = {
 			{ section = "header" },
 			{

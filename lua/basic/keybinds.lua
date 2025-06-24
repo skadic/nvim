@@ -44,12 +44,16 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 local wk_opts = { mode = "n", prefix = "<leader>", noremap = true, silent = true }
 
 require("mini.icons")
+require("snacks")
 
+local function string_empty(str)
+  return str == '' or str == nil
+end
 
 wk.add({
-  {"\\", function () require("oil").toggle_float() end, desc = "File Explorer"},
-  {"<leader>e", function () require("oil").toggle_float() end, desc = "File Explorer (Oil)"},
-  {"<leader>E", function () require("mini.files") MiniFiles.open() end, desc = "File Explorer (MiniFiles)"},
+  {"\\", Snacks.picker.explorer, desc = "File Explorer"},
+  {"<leader>e", Snacks.picker.explorer, desc = "File Explorer (Explorer)"},
+  {"<leader>E", function () require("oil").toggle_float() end, desc = "File Explorer (Oil)"},
 	--{ "<leader>e", "<cmd>Neotree toggle<cr>", desc = "File Explorer", icon = "" },
 	{ "<leader>L", "<cmd>Lazy<cr>", desc = "Open Lazy", icon = "󰒲" },
 	{ "<leader>M", "<cmd>Mason<cr>", desc = "Open Mason", icon = "󰏓" },
@@ -60,18 +64,19 @@ wk.add({
 		"<leader>fg",
 		function()
 			-- We want to just call the normal find files command if the current dir is not a git directory
-			local status_ok, _ = pcall(vim.cmd, "Telescope git_files")
-			if not status_ok then
-				vim.cmd("Telescope find_files")
-			end
+			if string_empty(Snacks.git.get_root(0)) then
+				Snacks.picker.files()
+      else
+				Snacks.picker.git_files()
+      end
 		end,
 		desc = "Git Files",
     icon = MiniIcons.get("filetype", "git")
 	},
-	{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", icon = MiniIcons.get("default", "file") },
-	{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Search Buffers", icon = MiniIcons.get("default", "file") },
-	{ "<leader>fl", "<cmd>Telescope live_grep<cr>", desc = "Live Grep", icon = MiniIcons.get("filetype", "text") },
-	{ "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Search Help" },
+	{ "<leader>ff", Snacks.picker.files, desc = "Find File", icon = MiniIcons.get("default", "file") },
+	{ "<leader>fb", Snacks.picker.buffers, desc = "Search Buffers", icon = MiniIcons.get("default", "file") },
+	{ "<leader>fl", Snacks.picker.grep, desc = "Live Grep", icon = MiniIcons.get("filetype", "text") },
+	{ "<leader>fh", Snacks.picker.help, desc = "Search Help" },
 	{ "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Todos" },
 
 	-- LSP
