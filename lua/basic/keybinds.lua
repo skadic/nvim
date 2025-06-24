@@ -38,8 +38,8 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
-vim.keymap.set("n", "[d", require("delimited").goto_prev, opts)
-vim.keymap.set("n", "]d", require("delimited").goto_next, opts)
+--vim.keymap.set("n", "[d", require("delimited").goto_prev, opts)
+--vim.keymap.set("n", "]d", require("delimited").goto_next, opts)
 
 local wk_opts = { mode = "n", prefix = "<leader>", noremap = true, silent = true }
 
@@ -71,7 +71,7 @@ wk.add({
 	{ "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Todos" },
 
 	-- LSP
-	{ "<leader>l", group = "LSP", icon = "" },
+	{ "<leader>l", group = "Language Server", icon = MiniIcons.get("default", "lsp") },
 	{
 		"<leader>lf",
 		function()

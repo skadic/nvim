@@ -1,6 +1,8 @@
 return {
 	{
 		"hrsh7th/nvim-cmp",
+    lazy = true,
+    event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
@@ -15,7 +17,7 @@ return {
 				snippet = {
 					-- REQUIRED - you must specify a snippet engine
 					expand = function(args)
-						require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+						luasnip.lsp_expand(args.body) -- For `luasnip` users.
 					end,
 					sources = cmp.config.sources({
 						{ name = "nvim_lsp" },
@@ -80,6 +82,7 @@ return {
 					},
 				},
 				sources = cmp.config.sources({
+          { name = "lazydev" },
 					{ name = "crates" },
 					{ name = "neorg" },
 					{ name = "nvim_lsp", keyword_length = 3 },

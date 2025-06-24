@@ -3,7 +3,7 @@ local M = {}
 local function lsp_highlight_document(client)
 	-- Set autocommands conditional on server_capabilities
 	if client.server_capabilities.documentHighlightProvider then
-		vim.api.nvim_exec(
+		vim.api.nvim_exec2(
 			[[
       augroup lsp_document_highlight
         autocmd! * <buffer>
@@ -11,13 +11,16 @@ local function lsp_highlight_document(client)
         autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
       augroup END
     ]],
-			false
+			{
+				output = false,
+			}
 		)
 	end
 end
 
 local function lsp_keymaps(bufnr)
 	local wk = require("which-key")
+	local opts = { noremap = true, silent = true }
 
 	wk.add({
 		{ "gd", "<cmd>Telescope lsp_definitions<CR>", desc = "Definition" },
@@ -25,10 +28,10 @@ local function lsp_keymaps(bufnr)
 		{ "gr", "<cmd>Telescope lsp_references<CR>", desc = "References" },
 		{ "gs", "<cmd>Telescope lsp_document_symbols<CR>", desc = "Document Symbols" },
 		{ "gS", "<cmd>Telescope lsp_workspace_symbols<CR>", desc = "Workspace Symbols" },
-	})
+	}, opts)
 
 	wk.add({
-		{ "<leader>l", group = "Language Server" },
+		{ "<leader>l", group = "Language Server", icon = MiniIcons.get("default", "lsp") },
 		{
 			"<leader>la",
 			function()
@@ -72,30 +75,44 @@ local function lsp_keymaps(bufnr)
 			end,
 			desc = "Signature Help",
 		},
-	})
+		{ "<leader>t", group = "Tests", icon = "󰙨" },
+		{ "<leader>tr", "<cmd>Neotest run<cr>", desc = "Run Tests", icon = "󰙨" },
+		{ "<leader>ts", "<cmd>Neotest stop<cr>", desc = "Stop Tests", icon = "󰙨" },
+		{ "<leader>to", "<cmd>Neotest output<cr>", desc = "Test Output", icon = "󰙨" },
+		{ "<leader>tO", "<cmd>Neotest output-panel<cr>", desc = "Test Output Panel", icon = "󰙨" },
+		{ "T", "<cmd>Neotest summary<cr>", desc = "Toggle Test Summary", icon = "󰙨" },
+		{ "]t", "<cmd>Neotest jump next<cr>", desc = "Next Test", icon = "󰙨" },
+		{ "[t", "<cmd>Neotest jump prev<cr>", desc = "Previous Test", icon = "󰙨" },
+	}, opts)
 
 	-- Setup the goto commands for diagnostics
-	local goto_next, goto_prev
-	local delimited_status_ok, delimited = pcall(require, "delimited")
-	if delimited_status_ok then
-		goto_next = delimited.goto_next
-		goto_prev = delimited.goto_prev
-	else
-		goto_next = vim.diagnostic.goto_next
-		goto_prev = vim.diagnostic.goto_prev
-	end
 
 	wk.add({
-		{ "[d", goto_prev, desc = "Previous Diagnostic" },
-		{ "]d", goto_next, desc = "Next Diagnostic" },
+		{
+			"[d",
+			function()
+				vim.diagnostic.jump({ count = 1, float = true })
+			end,
+			desc = "Previous Diagnostic",
+		},
+		{
+			"]d",
+			function()
+				vim.diagnostic.jump({ count = -1, float = true })
+			end,
+			desc = "Next Diagnostic",
+		},
 	})
 end
 
 M.on_attach = function(client, bufnr)
 	lsp_keymaps(bufnr)
 	lsp_highlight_document(client)
+	require("lsp_signature").on_attach({}, bufnr)
 
-	vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+	if not client == "jdtls" then
+		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+	end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

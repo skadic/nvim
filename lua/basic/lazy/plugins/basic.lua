@@ -54,87 +54,21 @@ return {
 		end,
 	},
 	{
-		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v3.x",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			--"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-			"echasnovski/mini.icons",
-			"MunifTanjim/nui.nvim",
-			"3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-			-- Allows you to pick windows
-			{
-				"s1n7ax/nvim-window-picker",
-				version = "2.*",
-				config = function()
-					require("window-picker").setup({
-						filter_rules = {
-							include_current_win = false,
-							autoselect_one = true,
-							-- filter using buffer options
-							bo = {
-								-- if the file type is one of following, the window will be ignored
-								filetype = { "neo-tree", "neo-tree-popup", "notify" },
-								-- if the buffer type is one of following, the window will be ignored
-								buftype = { "terminal", "quickfix" },
-							},
-						},
-					})
-				end,
-			},
-		},
-		lazy = true,
-		cmd = "Neotree",
-		event = "BufEnter",
-		opts = require("basic.neotree"),
-	},
-	{
 		"cohama/lexima.vim",
-    lazy = true,
-    event = { "BufReadPre", "BufNewFile" },
+		lazy = true,
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			require("basic.lexima")
 		end,
 	},
 	{
-		"stevearc/conform.nvim",
-		opts = {
-			formatters_by_ft = {
-				lua = { "stylua" },
-				xml = { "xmlformat" },
-				json = { "jq" },
-				rust = { "rustfmt" },
-				toml = { "taplo" },
-				sql = { "sqlfluff" },
-				yaml = { "yamlfmt" },
-			},
-		},
-	},
-	{
-		"mfussenegger/nvim-lint",
-		config = function()
-			vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertLeave" }, {
-				callback = function()
-					require("lint").try_lint()
-				end,
-			})
-
-			require("lint").linters_by_ft = {
-				yaml = { "yamllint" },
-				lua = { "selene" },
-				json = { "jsonlint" },
-				sql = { "sqlfluff" },
-			}
-		end,
-	},
-	{
 		"lewis6991/gitsigns.nvim",
-    lazy = true,
-    event = { "BufReadPre", "BufNewFile" },
+		lazy = true,
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = { "echasnovski/mini.icons" },
 		opts = {
 			on_attach = function()
-				local wk = require("basic.keybinds")
+				local wk = require("which-key")
 				local gs = require("gitsigns")
 
 				wk.add({
@@ -151,7 +85,7 @@ return {
 						function()
 							gs.diffthis("~")
 						end,
-						"Diff",
+						desc = "Diff",
 					},
 					{
 						"<leader>gb",
@@ -165,42 +99,28 @@ return {
 		},
 	},
 	{
-		"williamboman/mason.nvim",
-		opts = require("basic.lsp.mason"),
-    lazy = true,
-    cmd = "Mason"
-	},
-	{
-		"mizlan/delimited.nvim",
-		opts = {},
-	},
-	{
 		"kylechui/nvim-surround",
+		lazy = true,
 		version = "*", -- Use for stability; omit to use `main` branch for the latest features
 		event = "VeryLazy",
 		opts = {},
 	},
 	{
 		"folke/todo-comments.nvim",
+		lazy = true,
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {},
 	},
 	{
-		"j-hui/fidget.nvim",
-		config = function()
-			require("fidget").setup({
-				notification = {
-					override_vim_notify = true,
-				},
-			})
-		end,
-	},
-	{
 		"numToStr/Comment.nvim",
+		lazy = true,
+		event = { "BufReadPre", "BufNewFile" },
 		opts = {},
 	},
 	{
 		"kevinhwang91/nvim-ufo",
+		lazy = true,
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			"kevinhwang91/promise-async",
 		},
@@ -208,27 +128,26 @@ return {
 			require("basic.ufo")
 		end,
 	},
-	--[[{
-		"ggandor/leap.nvim",
-		config = function()
-			require("leap").create_default_mappings()
-		end,
-	},]]
+	{
+		"mizlan/delimited.nvim",
+		opts = {},
+	},
 	{
 		"karb94/neoscroll.nvim",
-		config = function()
-			require("neoscroll").setup({})
-		end,
+		lazy = true,
+		event = { "BufReadPre", "BufNewFile" },
+		opts = {},
 	},
 	{
 		"stevearc/oil.nvim",
 		---@module 'oil'
 		---@type oil.SetupOpts
-		opts = {},
-    lazy = true,
-    cmd = "Oil",
+		opts = {
+			delete_to_trash = true,
+		},
+		lazy = true,
+		cmd = "Oil",
 		-- Optional dependencies
-		dependencies = { { "echasnovski/mini.icons", opts = {} } },
-		-- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+		dependencies = { { "echasnovski/mini.icons" } },
 	},
 }

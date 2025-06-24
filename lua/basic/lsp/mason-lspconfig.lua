@@ -36,7 +36,6 @@ local opts = {
 		end,
 		["jdtls"] = function()
 			-- Do nothing, we let Lazy handle this
-			
 		end,
 	},
 }
