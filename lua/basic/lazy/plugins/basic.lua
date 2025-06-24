@@ -8,15 +8,24 @@ return {
 		end,
 	},
 	"sindrets/diffview.nvim",
-	{
+	--[[ {
 		"justinmk/vim-sneak",
 		config = function()
 			vim.g["sneak#label"] = 1
 		end,
+	}, ]]
+	{
+		"ggandor/leap.nvim",
+		config = function()
+			require("leap").create_default_mappings()
+		end,
+		dependencies = {
+			"tpope/vim-repeat",
+		},
 	},
 	{
 		"folke/which-key.nvim",
-    version = "*",
+		version = "*",
 		opts = {
 			win = {
 				border = "rounded",
@@ -134,10 +143,13 @@ return {
 		opts = {},
 	},
 	{
-		"karb94/neoscroll.nvim",
-		lazy = true,
-		event = { "BufReadPre", "BufNewFile" },
-		opts = {},
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		config = require("basic.snacks").on_load,
+    dependencies = {
+      "echasnovski/mini.icons"
+    }
 	},
 	{
 		"stevearc/oil.nvim",

@@ -63,7 +63,7 @@ return {
 			"MunifTanjim/nui.nvim",
 		},
 	},
-	{
+	--[[ {
 		"j-hui/fidget.nvim",
 		config = function()
 			require("fidget").setup({
@@ -72,7 +72,7 @@ return {
 				},
 			})
 		end,
-	},
+	}, ]]
 	{ "echasnovski/mini.statusline", version = "*", opts = {} },
 	{
 		"stevearc/dressing.nvim",
