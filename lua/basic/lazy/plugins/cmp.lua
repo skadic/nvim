@@ -3,7 +3,7 @@ return {
 		"Saghen/blink.cmp",
 		lazy = true,
 		event = { "BufReadPre", "BufNewFile" },
-		version = "*",
+		version = "0.13",
 		dependencies = {
 			"rafamadriz/friendly-snippets", -- a bunch of snippets to use
 		},
@@ -82,11 +82,23 @@ return {
 			},
 			cmdline = {
 				keymap = {
+					preset = "none",
 					["<Tab>"] = { "show", "select_next", "fallback" },
 					["<S-Tab>"] = { "show", "select_prev", "fallback" },
 					--["<Up>"] = { "select_prev", "fallback" },
 					--["<Down>"] = { "select_next", "fallback" },
 					["<CR>"] = { "accept", "fallback" },
+				},
+				completion = {
+					list = {
+						selection = {
+							-- When `true`, will automatically select the first item in the completion list
+							preselect = false,
+							-- When `true`, inserts the completion item automatically when selecting it
+							auto_insert = false,
+						},
+					},
+					menu = { auto_show = true },
 				},
 			},
 			sources = {
