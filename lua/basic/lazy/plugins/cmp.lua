@@ -81,6 +81,7 @@ return {
 				},
 				sources = cmp.config.sources({
 					{ name = "crates" },
+					{ name = "neorg" },
 					{ name = "nvim_lsp", keyword_length = 3 },
 					--{ name = "nvim_lsp_signature_help" },
 					{ name = "nvim_lua", keyword_length = 3 },

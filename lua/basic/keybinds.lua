@@ -79,6 +79,10 @@ wk.add({
 		end,
 		desc = "Format File",
 	},
+
+  -- Folds
+  { "zR", require("ufo").openAllFolds, desc = "Open all Folds" },
+  { "zM", require("ufo").closeAllFolds, desc = "Close all Folds" },
 })
 
 -- Insert --

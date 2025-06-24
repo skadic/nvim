@@ -3,6 +3,6 @@ lazy-lock.json
 .vscode/
 **/*_.lua
 
-notify.lua
-ufo.lua
-colors.lua
+lua/skadic/notify.lua
+lua/skadic/ufo.lua
+lua/skadic/colors.lua

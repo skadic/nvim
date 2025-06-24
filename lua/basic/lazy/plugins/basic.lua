@@ -7,9 +7,20 @@ return {
 			require("basic.treesitter")
 		end,
 	},
-	"justinmk/vim-sneak",
+	"sindrets/diffview.nvim",
+	{
+		"justinmk/vim-sneak",
+		config = function()
+			vim.g["sneak#label"] = 1
+		end,
+	},
 	{
 		"folke/which-key.nvim",
+		opts = {
+			win = {
+				border = "rounded",
+			},
+		},
 	},
 	{
 		-- Telescope
@@ -116,17 +127,35 @@ return {
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-    dependencies = { "echasnovski/mini.icons", },
-    opts = {
+		dependencies = { "echasnovski/mini.icons" },
+		opts = {
 			on_attach = function()
 				local wk = require("basic.keybinds")
 				local gs = require("gitsigns")
 
 				wk.add({
-          { "<leader>g", group = "Git" },
-          { "<leader>gt", function() gs.toggle_current_line_blame() end, desc = "Toggle current line blame" },
-					{ "<leader>gd", function() gs.diffthis("~") end, "Diff", },
-					{ "<leader>gb", function() gs.blame_line({ full = true }) end, desc = "Blame Line" },
+					{ "<leader>g", group = "Git" },
+					{
+						"<leader>gt",
+						function()
+							gs.toggle_current_line_blame()
+						end,
+						desc = "Toggle current line blame",
+					},
+					{
+						"<leader>gd",
+						function()
+							gs.diffthis("~")
+						end,
+						"Diff",
+					},
+					{
+						"<leader>gb",
+						function()
+							gs.blame_line({ full = true })
+						end,
+						desc = "Blame Line",
+					},
 				})
 			end,
 		},
@@ -164,4 +193,26 @@ return {
 		"numToStr/Comment.nvim",
 		opts = {},
 	},
+	{
+		"kevinhwang91/nvim-ufo",
+		dependencies = {
+			"kevinhwang91/promise-async",
+		},
+		config = function()
+			require("basic.ufo")
+		end,
+	},
+	--[[{
+		"ggandor/leap.nvim",
+		config = function()
+			require("leap").create_default_mappings()
+		end,
+	},]]
+	{
+		"karb94/neoscroll.nvim",
+		config = function()
+			require("neoscroll").setup({})
+		end,
+	},
+  { 'mistweaverco/kulala.nvim', opts = {} }
 }

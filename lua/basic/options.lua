@@ -42,7 +42,7 @@ vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 vim.opt.shortmess:append "c"
 
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.maplocalleader = ","
 
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
