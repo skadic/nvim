@@ -35,6 +35,8 @@ vim.opt.sidescrolloff = 8
 vim.opt.guifont = "agave Nerd Font:h17" -- the font used in graphical neovim applications
 vim.o.foldcolumn = "0" -- '0' is not bad
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 --vim.opt.list = true
 --vim.opt.listchars:append "space:⋅"
 --vim.opt.listchars:append "eol:↴"

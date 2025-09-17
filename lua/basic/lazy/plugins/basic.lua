@@ -1,8 +1,9 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    lazy = true,
-    event = "BufEnter",
+    lazy = false,
+    build = ':TSUpdate',
+    branch = "master",
     config = function()
       require("basic.treesitter")
     end,

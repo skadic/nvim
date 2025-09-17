@@ -1,5 +1,9 @@
 return {
   {
+    "rebelot/kanagawa.nvim",
+    lazy = true,
+  },
+  {
     "loctvl842/monokai-pro.nvim",
     lazy = true,
   },
